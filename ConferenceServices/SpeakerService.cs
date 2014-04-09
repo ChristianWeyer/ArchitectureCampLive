@@ -1,3 +1,4 @@
+using System.Configuration;
 using Contracts;
 using System;
 using System.Collections.Generic;
@@ -5,6 +6,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Http;
+using ServerHosting;
 
 namespace ConferenceServices
 {
@@ -14,7 +16,16 @@ namespace ConferenceServices
 
         public SpeakersService()
         {
-            client = GetRemoteServer();
+            var serverMode = ConfigurationManager.AppSettings["confdude:serverMode"];
+
+            if (serverMode == "Local")
+            {
+                client = GetLocalServer();
+            }
+            else
+            {
+                client = GetRemoteServer();   
+            }
         }
 
         private HttpClient GetRemoteServer()
@@ -29,9 +40,7 @@ namespace ConferenceServices
             var s = Assembly.Load("ConferenceDudeServices");
 
             var config = new HttpConfiguration();
-            config.Routes.MapHttpRoute(
-                "DefaultApi", "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional });
+            WebApiConfig.Register(config);
 
             var server = new HttpServer(config);
             var c = new HttpClient(server) { BaseAddress = new Uri("http://can.be.anything/") };
