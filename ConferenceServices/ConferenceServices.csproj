@@ -67,6 +67,10 @@
       <Project>{c466ef5d-da4d-42ef-a72e-7d34fe9ac85c}</Project>
       <Name>ServerHosting</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SharedContracts\SharedContracts.csproj">
+      <Project>{88F6A600-E42F-4C7F-A9CC-ABED852DD908}</Project>
+      <Name>SharedContracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

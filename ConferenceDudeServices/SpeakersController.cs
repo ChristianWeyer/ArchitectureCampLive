@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using SharedContracts;
 
 namespace ConferenceDudeServices
 {

@@ -1,15 +1,11 @@
-﻿using Contracts;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
-namespace Contracts
+namespace SharedContracts
 {
-    public class Speaker : ModelBase, IEditableObject
+    public class SpeakerDto : ModelBase, IEditableObject
     {
+        public int Id { get; set; }
+
         private string _firstName;
         public string FirstName
         {

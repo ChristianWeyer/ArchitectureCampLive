@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Http;
 using ServerHosting;
+using SharedContracts;
 
 namespace ConferenceServices
 {
@@ -48,12 +49,12 @@ namespace ConferenceServices
             return c;
         }
 
-        public async Task<IEnumerable<Speaker>> GetSpeakerListAsync()
+        public async Task<IEnumerable<SpeakerDto>> GetSpeakerListAsync()
         {
             try
             {
                 var result = await client.GetAsync("api/speakers/list");
-                var speakers = await result.Content.ReadAsAsync<List<Speaker>>();
+                var speakers = await result.Content.ReadAsAsync<List<SpeakerDto>>();
 
                 return speakers;
             }
@@ -63,7 +64,7 @@ namespace ConferenceServices
             }
         }
 
-        public void Save(Speaker speaker)
+        public void Save(SpeakerDto speaker)
         {
         }
     }

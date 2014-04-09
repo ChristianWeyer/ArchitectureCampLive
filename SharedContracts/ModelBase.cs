@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Contracts
+namespace SharedContracts
 {
     public abstract class ModelBase : INotifyPropertyChanged
     {

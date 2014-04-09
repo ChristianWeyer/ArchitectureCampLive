@@ -100,6 +100,10 @@
       <Project>{7698fd0a-a4d2-4034-990a-77ed3468ab52}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SharedContracts\SharedContracts.csproj">
+      <Project>{88f6a600-e42f-4c7f-a9cc-abed852dd908}</Project>
+      <Name>SharedContracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using SharedContracts;
 
 namespace ConferenceDude.Modules.SpeakerModule.ViewModels
 {
@@ -39,7 +40,7 @@ namespace ConferenceDude.Modules.SpeakerModule.ViewModels
             {
                 return;
             }
-            var speaker = this.SpeakerListView.CurrentItem as Speaker;
+            var speaker = this.SpeakerListView.CurrentItem as SpeakerDto;
         }
 
         private bool CanExecuteSaveCommand(object parameter)
@@ -71,14 +72,14 @@ namespace ConferenceDude.Modules.SpeakerModule.ViewModels
             this.CanExecuteSaveCommand(null);
         }
 
-        private ObservableCollection<Speaker> _speakerList;
-        public ObservableCollection<Speaker> SpeakerList
+        private ObservableCollection<SpeakerDto> _speakerList;
+        public ObservableCollection<SpeakerDto> SpeakerList
         {
             get { return _speakerList; }
             set { _speakerList = value; this.OnPropertyChanged(); }
         }
-        private Speaker _currentSpeaker;
-        public Speaker CurrentSpeaker
+        private SpeakerDto _currentSpeaker;
+        public SpeakerDto CurrentSpeaker
         {
             get { return _currentSpeaker; }
             set { _currentSpeaker = value; this.OnPropertyChanged(); }
@@ -103,7 +104,7 @@ namespace ConferenceDude.Modules.SpeakerModule.ViewModels
                 _speakerService = pool.GetService<ISpeakersService>();
                 this.SaveCommand = new DelegateCommand(this.CanExecuteSaveCommand, this.ExecuteSaveCommand);
                 var list = await _speakerService.GetSpeakerListAsync();
-                this.SpeakerList = new ObservableCollection<Speaker>(list);
+                this.SpeakerList = new ObservableCollection<SpeakerDto>(list);
                 this.CurrentSpeaker = this.SpeakerList[0];
                 this.SpeakerListView = new ListCollectionView(this.SpeakerList);
                 this.SpeakerListView.CurrentChanged += SpeakerListView_CurrentChanged;
