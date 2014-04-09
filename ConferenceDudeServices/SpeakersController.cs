@@ -7,20 +7,6 @@ namespace ConferenceDudeServices
 {
     public class SpeakersController : ApiController
     {
-        private static List<Speaker> speakers = new List<Speaker>();
-        
-        static SpeakersController()
-        {
-            var s1 = new Speaker() { Id = 1, FirstName = "Jörg", LastName = "Neumann" };
-            var s2 = new Speaker() { Id = 2, FirstName = "Christian", LastName = "Weyer" };
-            var s3 = new Speaker() { Id = 3, FirstName = "Ingo", LastName = "Rammer" };
-            var s4 = new Speaker() { Id = 4, FirstName = "Dominick", LastName = "Baier" };
-            speakers.Add(s1);
-            speakers.Add(s2);
-            speakers.Add(s3);
-            speakers.Add(s4);
-        }
-
         [HttpGet]
         [ActionName("ping")]
         public string Ping()
@@ -30,45 +16,55 @@ namespace ConferenceDudeServices
 
         [HttpGet]
         [ActionName("list")]
-        public List<Speaker> GetSpeakers()
+        public List<SpeakerDto> GetSpeakers()
         {
-            return speakers;
-        }
-
-        [HttpGet]
-        [ActionName("single")]
-        public Speaker GetSpeakerById(int id)
-        {
-            var result = speakers.FirstOrDefault(s => s.Id == id);
-
-            if (result == null)
+            using (var db = new ConferenceDudeContext())
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var speakers = db.Speakers.ToList();
+
+                return speakers.Select(s => new SpeakerDto
+                {
+                    Id = s.Id,
+                    FirstName = s.Name.Split(' ')[0],
+                    LastName = s.Name.Split(' ')[1]
+                }).ToList();
             }
-
-            return result;
         }
 
-        [HttpPost]
-        [ActionName("list")]
-        public void AddSpeaker(Speaker speaker)
-        {
-            speakers.Add(speaker);
-        }
+        //[HttpGet]
+        //[ActionName("single")]
+        //public Speaker GetSpeakerById(int id)
+        //{
+        //    var result = speakers.FirstOrDefault(s => s.Id == id);
 
-        [HttpDelete]
-        [ActionName("single")]
-        public void DeleteSpeaker(int id)
-        {
-            speakers.RemoveAll(s => s.Id == id);
-        }
+        //    if (result == null)
+        //    {
+        //        throw new HttpResponseException(HttpStatusCode.NotFound);
+        //    }
 
-        [HttpPut]
-        [ActionName("list")]
-        public void UpdateSpeaker(Speaker speaker)
-        {
-            DeleteSpeaker(speaker.Id);
-            speakers.Add(speaker);
-        }
+        //    return result;
+        //}
+
+        //[HttpPost]
+        //[ActionName("list")]
+        //public void AddSpeaker(Speaker speaker)
+        //{
+        //    speakers.Add(speaker);
+        //}
+
+        //[HttpDelete]
+        //[ActionName("single")]
+        //public void DeleteSpeaker(int id)
+        //{
+        //    speakers.RemoveAll(s => s.Id == id);
+        //}
+
+        //[HttpPut]
+        //[ActionName("list")]
+        //public void UpdateSpeaker(Speaker speaker)
+        //{
+        //    DeleteSpeaker(speaker.Id);
+        //    speakers.Add(speaker);
+        //}
     }
 }
