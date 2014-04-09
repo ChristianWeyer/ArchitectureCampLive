@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ConferenceDude.Services
 {
-    public class ModuleService
+    public class ModuleService : IModuleService
     {
         private CompositionContainer _container;
 
@@ -41,7 +41,7 @@ namespace ConferenceDude.Services
                 if (mod.Metadata.Name.Equals(metadata.Name))
                 {
                     var module = mod.Value;
-                    module.Initialize();
+                    module.Initialize(ServicePool.Current);
                     return module;
                 }
             }

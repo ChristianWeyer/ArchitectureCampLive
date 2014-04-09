@@ -1,4 +1,4 @@
-﻿using ConferenceDude.Modules.SpeakerModule.Infrastructure;
+﻿using Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConferenceDude.Modules.SpeakerModule.Models
+namespace Contracts
 {
     public class Speaker : ModelBase, IEditableObject
     {

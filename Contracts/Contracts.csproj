@@ -48,8 +48,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="IModule.cs" />
     <Compile Include="IModuleMetadata.cs" />
+    <Compile Include="IModuleService.cs" />
+    <Compile Include="IServicePool.cs" />
+    <Compile Include="ISpeakersService.cs" />
+    <Compile Include="ModelBase.cs" />
     <Compile Include="ModuleMetadataAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -64,6 +69,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Speaker.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

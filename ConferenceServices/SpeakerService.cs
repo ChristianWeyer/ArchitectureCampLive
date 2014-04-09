@@ -1,15 +1,14 @@
+using Contracts;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Http;
-using ConferenceDude.Modules.SpeakerModule.Models;
-using System.Collections.Generic;
-using System.Windows;
 
-namespace ConferenceDude.Modules.SpeakerModule.Services
+namespace ConferenceServices
 {
-    public class SpeakersService
+    public class SpeakersService : ISpeakersService
     {
         private HttpClient client;
 
@@ -57,7 +56,6 @@ namespace ConferenceDude.Modules.SpeakerModule.Services
 
         public void Save(Speaker speaker)
         {
-            MessageBox.Show(speaker.FirstName + " saved!");
         }
     }
 }

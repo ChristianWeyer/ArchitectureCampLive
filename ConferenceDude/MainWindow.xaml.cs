@@ -22,12 +22,12 @@ namespace ConferenceDude
 {
     public partial class MainWindow : Window
     {
-        private ModuleService _moduleService;
+        private IModuleService _moduleService;
 
         public MainWindow()
         {
             InitializeComponent();
-            _moduleService = new ModuleService();
+            _moduleService = ServicePool.Current.GetService<IModuleService>();
             var list = _moduleService.GetModules();
             this.modulesListBox.DisplayMemberPath = "DisplayName";
             this.modulesListBox.ItemsSource = list;

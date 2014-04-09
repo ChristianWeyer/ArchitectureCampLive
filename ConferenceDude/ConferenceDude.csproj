@@ -67,6 +67,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Services\ModuleService.cs" />
+    <Compile Include="Services\ServicePool.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,6 +113,10 @@
     <ProjectReference Include="..\ConferenceDudeServices\ConferenceDudeServices.csproj">
       <Project>{51165f08-003d-45dc-baa1-aba84ecf4dd9}</Project>
       <Name>ConferenceDudeServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConferenceServices\ConferenceServices.csproj">
+      <Project>{176c4a33-5fef-498a-80d4-4a332010d966}</Project>
+      <Name>ConferenceServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{7698fd0a-a4d2-4034-990a-77ed3468ab52}</Project>

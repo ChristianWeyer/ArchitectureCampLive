@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ConferenceDude.Modules.SpeakerModule.Infrastructure
+namespace Contracts
 {
     public abstract class ModelBase : INotifyPropertyChanged
     {

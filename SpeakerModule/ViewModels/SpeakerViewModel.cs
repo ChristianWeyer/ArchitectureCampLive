@@ -1,9 +1,5 @@
-﻿using ConferenceDude.Modules.SpeakerModule.Infrastructure;
-using ConferenceDude.Modules.SpeakerModule.Models;
-using ConferenceDude.Modules.SpeakerModule.Services;
-using ConferenceDude.Modules.SpeakerModule.Views;
+﻿using ConferenceDude.Modules.SpeakerModule.Views;
 using Contracts;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -23,7 +19,7 @@ namespace ConferenceDude.Modules.SpeakerModule.ViewModels
             get { return _state; }
             set { _state = value; this.OnPropertyChanged(); }
         }
-        private SpeakersService _speakerService;
+        private ISpeakersService _speakerService;
         private ICollectionView _speakerListView;
         public ICollectionView SpeakerListView
         {
@@ -95,7 +91,7 @@ namespace ConferenceDude.Modules.SpeakerModule.ViewModels
             set { _saveCommand = value; this.OnPropertyChanged(); }
         }
 
-        public async void Initialize()
+        public async void Initialize(IServicePool pool)
         {
             _isInititializing = true;
             this.State = "ReadOnly";
@@ -104,7 +100,7 @@ namespace ConferenceDude.Modules.SpeakerModule.ViewModels
                 Application.Current.MainWindow != null &&
                 !DesignerProperties.GetIsInDesignMode(Application.Current.MainWindow))
             {
-                _speakerService = new SpeakersService();
+                _speakerService = pool.GetService<ISpeakersService>();
                 this.SaveCommand = new DelegateCommand(this.CanExecuteSaveCommand, this.ExecuteSaveCommand);
                 var list = await _speakerService.GetSpeakerListAsync();
                 this.SpeakerList = new ObservableCollection<Speaker>(list);
