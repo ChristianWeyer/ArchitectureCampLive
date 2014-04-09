@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ConferenceDude.Views
+namespace ConferenceDude.Modules.SpeakerModule.Views
 {
     /// <summary>
     /// Interaction logic for SpeakerView.xaml

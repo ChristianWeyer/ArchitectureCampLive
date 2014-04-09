@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace ConferenceDude.Infrastructure
+namespace ConferenceDude.Modules.SpeakerModule.Infrastructure
 {
     public class DelegateCommand : ICommand
     {

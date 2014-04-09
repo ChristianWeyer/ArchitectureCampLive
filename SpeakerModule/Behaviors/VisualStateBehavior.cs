@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ConferenceDude.Behaviors
+namespace ConferenceDude.Modules.SpeakerModule.Behaviors
 {
     public class VisualStateBehavior
     {

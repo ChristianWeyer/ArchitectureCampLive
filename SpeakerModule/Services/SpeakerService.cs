@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Http;
-using ConferenceDude.Models;
+using ConferenceDude.Modules.SpeakerModule.Models;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace ConferenceDude.Services
+namespace ConferenceDude.Modules.SpeakerModule.Services
 {
     public class SpeakersService
     {

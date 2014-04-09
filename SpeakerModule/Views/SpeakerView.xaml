@@ -1,16 +1,14 @@
-﻿<UserControl x:Class="ConferenceDude.Views.SpeakerView"
+﻿<UserControl x:Class="ConferenceDude.Modules.SpeakerModule.Views.SpeakerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespace:ConferenceDude.ViewModels"
-             xmlns:bh="clr-namespace:ConferenceDude.Behaviors"
+             xmlns:vm="clr-namespace:ConferenceDude.Modules.SpeakerModule.ViewModels"
+             xmlns:bh="clr-namespace:ConferenceDude.Modules.SpeakerModule.Behaviors"
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <vm:SpeakerViewModel/>
-    </UserControl.DataContext>
     
-    <Grid x:Name="LayoutGrid" bh:VisualStateBehavior.VisualState="{Binding State}">
+    <Grid x:Name="LayoutGrid" bh:VisualStateBehavior.VisualState="{Binding State}"
+          Background="White">
     	<VisualStateManager.VisualStateGroups>
     		<VisualStateGroup x:Name="Common">
     			<VisualState x:Name="ReadOnly">

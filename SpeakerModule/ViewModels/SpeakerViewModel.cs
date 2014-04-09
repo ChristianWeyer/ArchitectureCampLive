@@ -1,15 +1,21 @@
-﻿using ConferenceDude.Infrastructure;
-using ConferenceDude.Models;
-using ConferenceDude.Services;
+﻿using ConferenceDude.Modules.SpeakerModule.Infrastructure;
+using ConferenceDude.Modules.SpeakerModule.Models;
+using ConferenceDude.Modules.SpeakerModule.Services;
+using ConferenceDude.Modules.SpeakerModule.Views;
+using Contracts;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace ConferenceDude.ViewModels
+namespace ConferenceDude.Modules.SpeakerModule.ViewModels
 {
-    public class SpeakerViewModel : ModelBase
+    [PartCreationPolicy(System.ComponentModel.Composition.CreationPolicy.NonShared)]
+    [ModuleMetadata("SpeakerViewModel", "Speakers", 0)]
+    public class SpeakerViewModel : ModelBase, IModule
     {
         private string _state;
         public string State
@@ -29,19 +35,6 @@ namespace ConferenceDude.ViewModels
         private bool _isInititializing;
         public SpeakerViewModel()
         {
-            _isInititializing = true;
-            this.State = "ReadOnly";
-
-            if (Application.Current != null &&
-                Application.Current.MainWindow != null &&
-                !DesignerProperties.GetIsInDesignMode(Application.Current.MainWindow))
-            {
-                _speakerService = new SpeakersService();
-                this.SaveCommand = new DelegateCommand(this.CanExecuteSaveCommand, this.ExecuteSaveCommand);
-                
-            }
-
-            _isInititializing = false;
         }
 
         void SpeakerListView_CurrentChanged(object sender, System.EventArgs e)
@@ -51,7 +44,6 @@ namespace ConferenceDude.ViewModels
                 return;
             }
             var speaker = this.SpeakerListView.CurrentItem as Speaker;
-            MessageBox.Show(speaker.FirstName);
         }
 
         private bool CanExecuteSaveCommand(object parameter)
@@ -59,18 +51,10 @@ namespace ConferenceDude.ViewModels
             return true; //this.CurrentSpeaker != null;
         }
 
-        private async void ExecuteSaveCommand(object parameter)
+        private void ExecuteSaveCommand(object parameter)
         {
             this.State = "Edit";
 
-            var list = await _speakerService.GetSpeakerListAsync();
-            this.SpeakerList = new ObservableCollection<Speaker>(list);
-            this.CurrentSpeaker = this.SpeakerList[0];
-            this.SpeakerListView = new ListCollectionView(this.SpeakerList);
-            this.SpeakerListView.CurrentChanged += SpeakerListView_CurrentChanged;
-            this.SpeakerListView.MoveCurrentTo(this.SpeakerList[1]);
-            //this.SpeakerListView.Filter = item => ((Speaker)item).FirstName.StartsWith("C");
-            _speakerEditView = this.SpeakerListView as IEditableCollectionView;
 
             //if (!_speakerEditView.IsEditingItem)
             //{
@@ -103,12 +87,41 @@ namespace ConferenceDude.ViewModels
             get { return _currentSpeaker; }
             set { _currentSpeaker = value; this.OnPropertyChanged(); }
         }
-        
+
         private ICommand _saveCommand;
         public ICommand SaveCommand
         {
             get { return _saveCommand; }
             set { _saveCommand = value; this.OnPropertyChanged(); }
+        }
+
+        public async void Initialize()
+        {
+            _isInititializing = true;
+            this.State = "ReadOnly";
+
+            if (Application.Current != null &&
+                Application.Current.MainWindow != null &&
+                !DesignerProperties.GetIsInDesignMode(Application.Current.MainWindow))
+            {
+                _speakerService = new SpeakersService();
+                this.SaveCommand = new DelegateCommand(this.CanExecuteSaveCommand, this.ExecuteSaveCommand);
+                var list = await _speakerService.GetSpeakerListAsync();
+                this.SpeakerList = new ObservableCollection<Speaker>(list);
+                this.CurrentSpeaker = this.SpeakerList[0];
+                this.SpeakerListView = new ListCollectionView(this.SpeakerList);
+                this.SpeakerListView.CurrentChanged += SpeakerListView_CurrentChanged;
+                this.SpeakerListView.MoveCurrentTo(this.SpeakerList[1]);
+                //this.SpeakerListView.Filter = item => ((Speaker)item).FirstName.StartsWith("C");
+                _speakerEditView = this.SpeakerListView as IEditableCollectionView;
+            }
+
+            _isInititializing = false;
+        }
+
+        public FrameworkElement GetView()
+        {
+            return new SpeakerView() { DataContext = this };
         }
     }
 }

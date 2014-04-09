@@ -1,17 +1,14 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Views="clr-namespace:ConferenceDude.Views" x:Class="ConferenceDude.MainWindow"
-        Title="MainWindow" Height="350" Width="525">
+        x:Class="ConferenceDude.MainWindow"
+        Title="MainWindow" Height="450" Width="625" WindowStartupLocation="CenterScreen">
     <Grid>
-    	<VisualStateManager.VisualStateGroups>
-    		<VisualStateGroup x:Name="Common">
-    			<VisualState x:Name="ReadOnly"/>
-    			<VisualState x:Name="Edit"/>
-    		</VisualStateGroup>
-    	</VisualStateManager.VisualStateGroups>
-
-        <Views:SpeakerView HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="299" Width="497"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="modulesListBox" SelectionChanged="modulesListBox_SelectionChanged"/>
+        <Border x:Name="border" Grid.Column="1" Background="Gray"/>
     </Grid>
 </Window>
