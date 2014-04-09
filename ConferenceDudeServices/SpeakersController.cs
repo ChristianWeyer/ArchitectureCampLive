@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
@@ -32,40 +33,57 @@ namespace ConferenceDudeServices
             }
         }
 
-        //[HttpGet]
-        //[ActionName("single")]
-        //public Speaker GetSpeakerById(int id)
-        //{
-        //    var result = speakers.FirstOrDefault(s => s.Id == id);
+        [HttpGet]
+        [ActionName("single")]
+        public SpeakerDto GetSpeakerById(int id)
+        {
+            using (var db = new ConferenceDudeContext())
+            {
+                var speaker = db.Speakers.FirstOrDefault(s => s.Id == id);
 
-        //    if (result == null)
-        //    {
-        //        throw new HttpResponseException(HttpStatusCode.NotFound);
-        //    }
+                if (speaker == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
 
-        //    return result;
-        //}
+                return new SpeakerDto { Id = speaker.Id, FirstName = speaker.Name.Split(' ')[0], LastName = speaker.Name.Split(' ')[1] };
+            }
+        }
 
-        //[HttpPost]
-        //[ActionName("list")]
-        //public void AddSpeaker(Speaker speaker)
-        //{
-        //    speakers.Add(speaker);
-        //}
+        [HttpPost]
+        [ActionName("list")]
+        public void AddSpeaker(SpeakerDto speaker)
+        {
+            using (var db = new ConferenceDudeContext())
+            {
+                var entry = new Speaker { Name = speaker.FirstName + " " + speaker.LastName };
+                db.Speakers.Add(entry);
+                db.SaveChanges();
+            }
+        }
 
-        //[HttpDelete]
-        //[ActionName("single")]
-        //public void DeleteSpeaker(int id)
-        //{
-        //    speakers.RemoveAll(s => s.Id == id);
-        //}
+        [HttpDelete]
+        [ActionName("single")]
+        public void DeleteSpeaker(int id)
+        {
+            using (var db = new ConferenceDudeContext())
+            {
+                db.Entry(new Speaker { Id = id }).State =
+                    EntityState.Deleted;
+                db.SaveChanges();
+            }
+        }
 
-        //[HttpPut]
-        //[ActionName("list")]
-        //public void UpdateSpeaker(Speaker speaker)
-        //{
-        //    DeleteSpeaker(speaker.Id);
-        //    speakers.Add(speaker);
-        //}
+        [HttpPut]
+        [ActionName("list")]
+        public void UpdateSpeaker(SpeakerDto speaker)
+        {
+            using (var db = new ConferenceDudeContext())
+            {
+                db.Entry(new Speaker { Id = speaker.Id, Name = speaker.FirstName + " " + speaker.LastName }).State =
+                    EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
     }
 }
