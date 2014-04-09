@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{363DD4A0-7018-45B5-B339-D2964D01C1F8}</ProjectGuid>
+    <ProjectGuid>{E8C351C2-7352-478F-95DA-88B9C73765BC}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpeakerModule</RootNamespace>
-    <AssemblyName>SpeakerModule</AssemblyName>
+    <RootNamespace>SharedUI</RootNamespace>
+    <AssemblyName>SharedUI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\output\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,45 +32,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\VisualStateBehavior.cs" />
-    <Compile Include="ViewModels\SpeakerViewModel.cs" />
-    <Compile Include="Views\SpeakerView.xaml.cs">
-      <DependentUpon>SpeakerView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\SpeakerView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Behaviors\EnterToFocusBehavior.cs" />
+    <Compile Include="Behaviors\EnterToTabBehavior.cs" />
+    <Compile Include="Behaviors\HighlightBehavior.cs" />
+    <Compile Include="Behaviors\NumericBehavior.cs" />
+    <Compile Include="Behaviors\ReadOnlyBehavior.cs" />
+    <Compile Include="Behaviors\SelectImageBehavior.cs" />
+    <Compile Include="Behaviors\SetFocusBehavior.cs" />
+    <Compile Include="Behaviors\VisualStateSelector.cs" />
+    <Compile Include="Controls\AppButton.cs" />
+    <Compile Include="Converters\BitmapImageToByteArrayConverter.cs" />
+    <Compile Include="Converters\ByteArrayToBitmapImageConverter.cs" />
+    <Compile Include="Converters\StringToBitmapImageConverter.cs" />
+    <Compile Include="Converters\StringToUpperConverter.cs" />
+    <Compile Include="Converters\UriToBitmapImageConverter.cs" />
+    <Compile Include="Images\ImageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -88,7 +78,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -96,20 +85,55 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Contracts.csproj">
-      <Project>{7698fd0a-a4d2-4034-990a-77ed3468ab52}</Project>
-      <Name>Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharedContracts\SharedContracts.csproj">
-      <Project>{88f6a600-e42f-4c7f-a9cc-abed852dd908}</Project>
-      <Name>SharedContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharedUI\SharedUI.csproj">
-      <Project>{e8c351c2-7352-478f-95da-88b9c73765bc}</Project>
-      <Name>SharedUI</Name>
-    </ProjectReference>
+    <Page Include="Colors\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\AppButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Fonts\FontFamilies.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Images.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sizes\Sizes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Strings\Strings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBlockStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Add.png" />
+    <Resource Include="Images\Cancel.png" />
+    <Resource Include="Images\Ok.png" />
+    <Resource Include="Images\Delete.png" />
+    <Resource Include="Images\Edit.png" />
+    <Resource Include="Images\Information.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

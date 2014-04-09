@@ -5,7 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:ConferenceDude.Modules.SpeakerModule.ViewModels"
              xmlns:bh="clr-namespace:ConferenceDude.Modules.SpeakerModule.Behaviors"
-             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
+             >
+    <!--<UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SharedUI;component/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>-->
     
     <Grid x:Name="LayoutGrid" bh:VisualStateBehavior.VisualState="{Binding State}"
           Background="White">
