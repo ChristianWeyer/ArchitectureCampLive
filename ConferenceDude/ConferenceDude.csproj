@@ -129,6 +129,10 @@
       <Project>{7698fd0a-a4d2-4034-990a-77ed3468ab52}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SharedUI\SharedUI.csproj">
+      <Project>{e8c351c2-7352-478f-95da-88b9c73765bc}</Project>
+      <Name>SharedUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
