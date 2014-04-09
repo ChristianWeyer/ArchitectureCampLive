@@ -7,8 +7,8 @@
     <ProjectGuid>{DCBE5758-6402-4B8F-9677-A7ECE26F4051}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConferenceDudeSelfHost</RootNamespace>
-    <AssemblyName>ConferenceDudeSelfHost</AssemblyName>
+    <RootNamespace>SelfHost</RootNamespace>
+    <AssemblyName>SelfHost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
